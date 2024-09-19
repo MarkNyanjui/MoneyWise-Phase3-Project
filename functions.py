@@ -1,6 +1,9 @@
 from tables import Users, Categories, Transactions, Budgets, Savings, Session
 from datetime import datetime
 
+######################################
+# Adding new data functions
+
 def add_user():
     name = input("Enter name:")
     email = input("Enter email:")
@@ -135,7 +138,8 @@ def add_savings():
         sesh.commit()
         print('Saving has been added successfully')
 
-
+###########################################################################
+# Delete functions
 
 
 

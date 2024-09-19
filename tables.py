@@ -15,7 +15,12 @@ class Users(Base):
 
 
     ## Relationships of the users table with the other tables
-    categories = relationship("Categories", secondary= 'user_categories', back_populates='users')
+    categories = relationship(
+        "Categories", 
+        secondary= 'user_categories',
+        back_populates='users',
+        primaryjoin="Categories.category_id==UserCategories.category_id",
+        secondaryjoin="UserCategories.user_id==Users.user_id")
     transactions = relationship('Transactions', secondary = 'user_transactions', back_populates='users')
     budgets = relationship('Budgets', secondary = 'user_budgets', back_populates='users')
     savings = relationship('Savings', secondary = 'user_savings', back_populates='users')
@@ -29,7 +34,12 @@ class Categories(Base):
 
 
     ## Relationships of the categories table with the other tables
-    users = relationship("Users", secondary= 'user_categories', back_populates= 'categories')
+    users = relationship(
+        "Users", 
+        secondary= 'user_categories', 
+        back_populates= 'categories',
+        primaryjoin="Users.user_id==UserCategories.user_id",
+        secondaryjoin="UserCategories.user_id==Users.user_id")
     transactions = relationship("Transactions", back_populates="categories")
     budgets = relationship("Budgets", back_populates= 'categories')
 
