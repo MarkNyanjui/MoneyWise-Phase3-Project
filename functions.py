@@ -150,7 +150,53 @@ def delete_user():
             sesh.commit()
             print(f"User with ID '{user_id}' has been successfully deleted")
 
-def delete_transaction()
+def delete_transaction():
+    transactions_id = int(input("Enter Transaction to delete: "))
+
+    with Session() as sesh:
+        transaction = sesh.query(Transactions).filter_by(transactions_id=transactions_id.first())
+        if transaction is not None:
+            sesh.delete(transaction)
+            sesh.commit()
+            print(f"Transaction with ID '{transactions_id}' has been successfully deleted")
+
+def delete_Category():
+    category_id = int(input("Enter Category to delete: "))
+
+    with Session() as sesh:
+        transaction = sesh.query(Categories).filter_by(category_id=category_id.first())
+        if transaction is not None:
+            sesh.delete(transaction)
+            sesh.commit()
+            print(f"Category with ID '{category_id}' has been successfully deleted")
+
+def delete_budget():
+    budget_id = int(input("Enter Budget to delete: "))
+
+    with Session() as sesh:
+        budget = sesh.query(Budgets).filter_by(budget_id=budget_id.first())
+        if budget is not None:
+            sesh.delete(budget)
+            sesh.commit()
+            print(f"Budget with ID '{budget_id}' has been successfully deleted")
+
+def delete_saving():
+    savings_id = int(input("Enter Saving to delete: "))
+
+    with Session() as sesh:
+        saving = sesh.query(Savings).filter_by(savings_id=savings_id.first())
+        if saving is not None:
+            sesh.delete(saving)
+            sesh.commit()
+            print(f"Saving with ID '{savings_id}' has been successfully deleted")
+
+
+#######################################################################################
+
+## Update functions
+
+
+
 
 
 
