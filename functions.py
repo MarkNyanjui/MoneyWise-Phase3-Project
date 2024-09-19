@@ -140,7 +140,17 @@ def add_savings():
 
 ###########################################################################
 # Delete functions
+def delete_user():
+    user_id = int(input("Enter User ID to delete: "))
 
+    with Session() as sesh:
+        user = sesh.query(Users).filter_by(user_id=user_id.first())
+        if user is not None:
+            sesh.delete(user)
+            sesh.commit()
+            print(f"User with ID '{user_id}' has been successfully deleted")
+
+def delete_transaction()
 
 
 
