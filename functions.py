@@ -200,7 +200,7 @@ def update_user():
     new_email = input("Enter new email: ")
 
     with Session() as sesh:
-        user = sesh.query(Users).filter_by(user_id=user_id).first
+        user = sesh.query(Users).filter_by(user_id=user_id).first()
         if user is not None:
             user.name = new_name
             user.email = new_email
@@ -213,7 +213,7 @@ def update_category():
     new_name = input("Enter new name: ")
 
     with Session() as sesh:
-        category = sesh.query(Categories).filter_by(category_id=category_id).first
+        category = sesh.query(Categories).filter_by(category_id=category_id).first()
         if category is not None:
             category.name = new_name
             sesh.commit()
@@ -248,7 +248,7 @@ def update_transaction():
         return
     
     with Session() as sesh:
-        transaction = sesh.query(Transactions).filter_by(transaction_id=transaction_id).first
+        transaction = sesh.query(Transactions).filter_by(transaction_id=transaction_id).first()
         if transaction is not None:
             transaction.amount = new_amount
             transaction.description = new_description
@@ -282,7 +282,7 @@ def update_budget():
         print('Invalid input: Year must be greater than 0')
 
     with Session() as sesh:
-        budget = sesh.query(Budgets).filter_by(budget_id=budget_id).first
+        budget = sesh.query(Budgets).filter_by(budget_id=budget_id).first()
         if budget is not None:
             budget.amount = new_amount
             budget.category_id = new_category_id
@@ -292,35 +292,37 @@ def update_budget():
             print("Budget has been successfully updated")
 
 def update_saving():
-    savings_id = int(input("Enter Saving ID to update: "))
+    saving_id = int(input("Enter Saving ID to update: "))
     new_amount = input("Enter new amount: ")
     new_goal = input("Enter new goal:")
-    new_start_month = input("Enter the new start month")
-    new_end_month = input("Enter the new end month")
+    new_start_month = input("Enter the new start month: ")
+    new_end_month = input("Enter the new end month: ")
     new_user_id = int(input("Enter the new user ID: "))
 
-    months = ['January', 'February','March', 'April','May', 'June', 'July', 'August', 'September', 'October','November','December']
+    months = ['January', 'February','March', 'April','May', 'June', 
+              'July', 'August', 'September', 'October','November','December']
 
     try:
         new_amount = float(new_amount)
     except ValueError:
         print('Invalid input: Amount must be a number')
         return
-    try:
-        new_goal = str(new_goal)
-    except ValueError:
-        print('Invalid input: Goal must be a number')
+    
+    if not isinstance(new_goal, str):
+        print("Invalid input: Goal must be a string")
         return
+    
     if new_start_month and new_end_month not in months:
         print('Invalid input: Months must be existing months')
+        return
 
     with Session() as sesh:
-        saving = sesh.query(Savings).filter_by(savings_id=savings_id).first
+        saving = sesh.query(Savings).filter_by(saving_id=saving_id).first()
         if saving is not None:
-            saving.amount = new_amount,
-            saving.goal = new_goal,
-            saving.start_month = new_start_month,
-            saving.end_month = new_end_month,
+            saving.amount = new_amount
+            saving.goal = new_goal
+            saving.start_month = new_start_month
+            saving.end_month = new_end_month
             saving.user_id = new_user_id
         sesh.commit()
         print('Saving has been successfully updated')
