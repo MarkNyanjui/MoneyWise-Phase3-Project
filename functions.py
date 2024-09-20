@@ -5,8 +5,8 @@ from datetime import datetime
 # Adding new data functions
 
 def add_user():
-    name = input("Enter name:")
-    email = input("Enter email:")
+    name = input("Enter name: ")
+    email = input("Enter email: ")
     
     with Session() as sesh:
         new_user = Users(name = name, email = email)
@@ -16,11 +16,11 @@ def add_user():
 
 
 def add_transaction():
-    amount = input("Enter Transaction Amount:")
-    description = input("Enter Description:")
-    transaction_date = input("Enter Transaction Date (YYYY-MM-DD):")
-    transaction_type = input("Enter Transaction Type (Income/Expense):")
-    category_id = input("Enter Category ID:")
+    amount = input("Enter Transaction Amount: ")
+    description = input("Enter Description: ")
+    transaction_date = input("Enter Transaction Date (YYYY-MM-DD): ")
+    transaction_type = input("Enter Transaction Type (Income/Expense): ")
+    category_id = input("Enter Category ID: ")
 
     try:
         amount = float(amount)
@@ -258,7 +258,7 @@ def update_transaction():
             sesh.commit()
             print("Transaction has been successfully updated")
 
-def add_budget():
+def update_budget():
     budget_id = int(input("Enter Budget ID to be updated: "))
     new_amount = input('Enter new amount: ')
     new_category_id = int(input('Enter new Category ID: '))

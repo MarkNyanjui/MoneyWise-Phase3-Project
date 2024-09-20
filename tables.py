@@ -19,11 +19,29 @@ class Users(Base):
         "Categories", 
         secondary= 'user_categories',
         back_populates='users',
-        primaryjoin="Categories.category_id==UserCategories.category_id",
-        secondaryjoin="UserCategories.user_id==Users.user_id")
-    transactions = relationship('Transactions', secondary = 'user_transactions', back_populates='users')
-    budgets = relationship('Budgets', secondary = 'user_budgets', back_populates='users')
-    savings = relationship('Savings', secondary = 'user_savings', back_populates='users')
+        primaryjoin="Users.user_id == UserCategories.user_id",
+        secondaryjoin="Categories.category_id == UserCategories.category_id")
+    transactions = relationship(
+        'Transactions', 
+        secondary = 'user_transactions', 
+        back_populates='users',
+        primaryjoin="Users.user_id == UserTransactions.user_id",
+        secondaryjoin="Transactions.transaction_id == UserTransactions.transaction_id",
+        )
+    budgets = relationship(
+        'Budgets',
+         secondary = 'user_budgets', 
+         back_populates='users',
+         primaryjoin="Users.user_id == UserBudgets.user_id",
+         secondaryjoin="Budgets.budget_id == UserBudgets.budget_id"
+         )
+    savings = relationship(
+        'Savings', 
+        secondary = 'user_savings', 
+        back_populates='users',
+        primaryjoin="Users.user_id == UserSavings.user_id",
+        secondaryjoin="Savings.saving_id == UserSavings.saving_id"
+        )
 
 
 class Categories(Base):
@@ -38,8 +56,8 @@ class Categories(Base):
         "Users", 
         secondary= 'user_categories', 
         back_populates= 'categories',
-        primaryjoin="Users.user_id==UserCategories.user_id",
-        secondaryjoin="UserCategories.user_id==Users.user_id")
+        primaryjoin="Categories.category_id == UserCategories.category_id",
+        secondaryjoin="Users.user_id == UserCategories.user_id")
     transactions = relationship("Transactions", back_populates="categories")
     budgets = relationship("Budgets", back_populates= 'categories')
 
@@ -57,7 +75,12 @@ class Transactions(Base):
 
 
     ## Relationships of the transactions table with the other tables
-    users = relationship("Users", secondary="user_transactions", back_populates='transactions')
+    users = relationship (
+        "Users", 
+        secondary="user_transactions", 
+        back_populates='transactions',
+        primaryjoin="Transactions.transaction_id==UserTransactions.transaction_id",
+        secondaryjoin="UserTransactions.user_id==Users.user_id")
     categories = relationship("Categories", back_populates="transactions")
 
 
@@ -110,7 +133,6 @@ class UserBudgets(Base):
     ub_id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.user_id'))
     budget_id = Column(Integer, ForeignKey('budgets.budget_id'))
-    budget_amount = Column(Integer, ForeignKey('budgets.amount'))
 
 
 class UserTransactions(Base):
@@ -128,6 +150,5 @@ class UserSavings(Base):
     us_id = Column(Integer, primary_key = True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.user_id'))
     saving_id = Column(Integer, ForeignKey('savings.saving_id'))
-    saving_amount = Column(DECIMAL, ForeignKey('savings.amount'))
 
 Base.metadata.create_all(engine)
