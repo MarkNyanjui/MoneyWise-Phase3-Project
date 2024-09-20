@@ -1,5 +1,6 @@
 from tables import Users, Categories, Transactions, Budgets, Savings, Session
 from datetime import datetime
+from sqlalchemy import func
 
 ######################################
 # Adding new data functions
@@ -28,13 +29,18 @@ def add_transaction():
         print('Invalid input: Amount must be a number')
         return
     try:
-        transaction_date = datetime.strptime(transaction_date, "%Y-%m-%d")
+        transaction_date = datetime.strptime(transaction_date, "%Y-%m-%d").replace(hour=0,minute=0,second=0)
     except ValueError:
         print('Invalid input: Transaction Date must be in the format YYYY-MM-DD')
         return
-
-    if not isinstance(description, str) or isinstance(transaction_type, str):
-        print('Invalid input: Description and Transaction Type must be strings')
+    
+    if not isinstance(description, str):
+        print('Invalid input: Description must be a string')
+        return
+    
+    if transaction_type not in ["Income", "Expense"]:
+        print('Invalid input: Transaction Type must be either "Income" or "Expense"')
+        return
 
     try:
         category_id = int(category_id)
@@ -237,9 +243,16 @@ def update_transaction():
     except ValueError:
         print('Invalid input: Transaction Date must be in the format YYYY-MM-DD')
         return
-
-    if not isinstance(new_description, str) or isinstance(new_transaction_type, str):
-        print('Invalid input: Description and Transaction Type must be strings')
+    
+    
+    
+    
+ 
+    if not isinstance(new_description, str):
+        print('Invalid input: Description must be a string')
+    
+    if new_transaction_type not in ["Income", "Expense"]:
+        print('Invalid input: Transaction type must either be "Income" or "Expense"')
 
     try:
         new_category_id = int(new_category_id)
