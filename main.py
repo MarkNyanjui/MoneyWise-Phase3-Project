@@ -1,5 +1,7 @@
 from functions import add_transaction, add_user, add_category, add_budgets, add_savings,update_category,update_saving,update_transaction,update_user,update_budget, delete_budget,delete_Category,delete_saving,delete_transaction,delete_user
 
+################################################################################################
+# The functions within this block are for the menus displayed when the users branches to Add, update or delete data in the main menu
 def adding_data():
     Add = '''
     Please select an option from the following to add data:
@@ -83,10 +85,11 @@ def deleting_data():
             delete_saving()
         else:
             print("Please select a valid option")
-
+#############################################################################################
   
 
 if __name__ == '__main__':
+   # This is the output seen on the terminal on the file is initialized
       Hello = '''
       Welcome to MoneyWise, your reliable personal finance tracker.
       Please select an option from the following:

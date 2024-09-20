@@ -244,10 +244,6 @@ def update_transaction():
         print('Invalid input: Transaction Date must be in the format YYYY-MM-DD')
         return
     
-    
-    
-    
- 
     if not isinstance(new_description, str):
         print('Invalid input: Description must be a string')
     
