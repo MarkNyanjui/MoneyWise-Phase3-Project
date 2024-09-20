@@ -119,7 +119,7 @@ def add_savings():
         print('Invalid input: Amount must be a number')
         return
     try:
-        goal = float(goal)
+        goal = str(goal)
     except ValueError:
         print('Invalid input: Goal must be a number')
         return
@@ -307,7 +307,7 @@ def update_saving():
         print('Invalid input: Amount must be a number')
         return
     try:
-        new_goal = float(new_goal)
+        new_goal = str(new_goal)
     except ValueError:
         print('Invalid input: Goal must be a number')
         return
